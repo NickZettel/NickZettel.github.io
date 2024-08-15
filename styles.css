@@ -8,20 +8,15 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
 }
-img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
+
 
 /* mask for name in header */
 .mask1 {
-  -webkit-mask-image: url('w3logo.png');
-  mask-image: url('w3logo.png');
+  -webkit-mask-image: url(name.png);
+  mask-image: url(name.png);
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;   
-  -webkit-mask-size: cover;
-  mask-size: cover;
+
 }
 
 /* Header/logo Title */
