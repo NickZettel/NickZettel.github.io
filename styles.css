@@ -11,16 +11,17 @@ body {
 
 
 .mask1 {
-  position: relative; /* Allows precise positioning of the mask */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
+  display: inline-block; /* Ensures the container size fits the image */
+  width: auto; /* Automatically adjust width based on the image */
   height: 112px; /* Match the height of the image */
-  width: 900px;  /* Match the width of the image */
-  overflow: hidden; /* Ensure the mask doesn't exceed its container */
-  margin: 0 auto; /* Center the mask horizontally within the header */
 }
 
+.mask1 img {
+  display: block; /* Remove extra space below the image */
+  height: 100%; /* Ensure image fills the height of the container */
+  width: auto; /* Maintain aspect ratio */
+}
 
 /* Style the top navigation bar */
 .navbar {
