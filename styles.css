@@ -15,8 +15,11 @@ body {
   -webkit-mask-image: url(name.png);
   mask-image: url(name.png);
   -webkit-mask-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
   mask-repeat: no-repeat;   
   text-align: center;
+  align-items: center;
 	
 }
 
