@@ -10,17 +10,15 @@ body {
 }
 
 
-/* mask for name in header */
 .mask1 {
-  -webkit-mask-image: url(name.png);
-  mask-image: url(name.png);
-  -webkit-mask-repeat: no-repeat;
+  position: relative; /* Allows precise positioning of the mask */
   display: flex;
   justify-content: center;
-  mask-repeat: no-repeat;   
-  text-align: center;
   align-items: center;
-	
+  height: 112px; /* Match the height of the image */
+  width: 900px;  /* Match the width of the image */
+  overflow: hidden; /* Ensure the mask doesn't exceed its container */
+  margin: 0 auto; /* Center the mask horizontally within the header */
 }
 
 
