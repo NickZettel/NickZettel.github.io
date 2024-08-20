@@ -17,12 +17,6 @@ input {
 
 
 
-  .pdf-embed {
-    width: 100%;
-    height: auto;
-    max-width: 800px; /* Adjust as needed */
-    max-height: 1050px; /* Adjust as needed */
-  }
 
 /* Style the top navigation bar */
 .navbar {
