@@ -18,10 +18,7 @@ window.addEventListener('resize',resizeCanvas)
 
 ctx.strokeStyle = 'red';
 
-ctx.beginPath();       // Begin a new path
-ctx.moveTo(50, 50);    // Move to the starting point (x, y)
-ctx.lineTo(250, 50);   // Draw a line to the ending point (x, y)
-ctx.stroke();   
+
 
 ctx.beginPath();
 ctx.moveTo(50, 100);
@@ -33,30 +30,60 @@ ctx.moveTo(50, 150);
 ctx.lineTo(250, 280);
 ctx.stroke();  // Canvas will show a diagonal red line
 
-let x = canvas.width /2
-let y = canvas.height /2
-const radius = 20;
-let dx = 50;
-let dy = 50;
+
+
+const startingX = Math.floor(Math.random()*canvas.width-1);
+
+function randomNumberBetweenExcludingZero(){
+    let x = 0; 
+    let y = 0; 
+    while (x == 0 && y == 0){
+        x = Math.floor(Math.random() * 7) - 3;
+        y = Math.floor(Math.random() * 7) - 3;
+    }
+    return [x,y];
+}
+
+function createNode(){
+    let [dx,dy] = randomNumberBetweenExcludingZero();
+    console.log(dx,dy)
+    return {
+        radius: 3,
+        dx: dx,
+        dy: dy,
+        x: Math.floor(Math.random()*canvas.width-1),
+        y: Math.floor(Math.random()*canvas.height-1),
+        move: function(){
+            this.x += this.dx;
+            this.y += this.dy;
+            if (this.x+this.radius >= canvas.width || this.x - this.radius <= 0) {
+                this.dx = -this.dx
+            }
+            if (this.y+this.radius >= canvas.height || this.y - this.radius <= 0) {
+                this.dy = -this.dy
+            }
+        }
+    }
+}
+
+nodes = [];
+
+for (let i = 0; i < 20; i++){
+    nodes.push(createNode())
+}
 
 // function to update the canvas
 function update(){
     ctx.clearRect(0,0,canvas.width, canvas.height);
-    ctx.beginPath();
-    ctx.arc(x,y,radius,0,Math.PI * 2);
-    ctx.fillStyle = '#0095DD';
-    ctx.fill()
-    ctx.closePath()
+    for (let i = 0; i < nodes.length; i++){
+        nodes[i].move()
+        ctx.beginPath();
+        ctx.arc(nodes[i].x,nodes[i].y,nodes[i].radius,0,Math.PI * 2);
+        ctx.fillStyle = '#0095DD';
+        ctx.fill()
+        ctx.closePath()
+    }
     
-    x+= dx;
-    y+= dy;
-
-    if (x+radius > canvas.width || x - radius < 0) {
-        dx = -dx
-    }
-    if (y + radius > canvas.height || y - radius < 0) {
-        dy = -dy;
-    }
     requestAnimationFrame(update);
 }
 update();
