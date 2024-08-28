@@ -36,8 +36,8 @@ ctx.stroke();  // Canvas will show a diagonal red line
 let x = canvas.width /2
 let y = canvas.height /2
 const radius = 20;
-let dx = 2;
-let dy = 2;
+let dx = 50;
+let dy = 50;
 
 // function to update the canvas
 function update(){
