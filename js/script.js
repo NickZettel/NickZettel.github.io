@@ -16,23 +16,23 @@ resizeCanvas();
 //ready for resizing
 window.addEventListener('resize',resizeCanvas)
 
-ctx.strokeStyle = 'red';
+let mouseX, mouseY;
+
+canvas.addEventListener('mousemove', (event) => {
+    // Get the canvas position relative to the viewport
+    const rect = canvas.getBoundingClientRect();
+    
+    // Calculate the mouse position relative to the canvas
+    mouseX = event.clientX - rect.left;
+    mouseY = event.clientY - rect.top;
+    
+    // Update the display with the calculated coordinates
+    coords.textContent = `Mouse Coordinates: (${mouseX}, ${mouseY})`;
+    console.log(mouseX,mouseY)
+});
 
 
 
-ctx.beginPath();
-ctx.moveTo(50, 100);
-ctx.lineTo(250, 100);
-ctx.stroke();  // Canvas will show another red line
-
-ctx.beginPath();
-ctx.moveTo(50, 150);
-ctx.lineTo(250, 280);
-ctx.stroke();  // Canvas will show a diagonal red line
-
-
-
-const startingX = Math.floor(Math.random()*canvas.width-1);
 
 function randomNumberBetweenExcludingZero(){
     let x = 0; 
@@ -46,9 +46,8 @@ function randomNumberBetweenExcludingZero(){
 
 function createNode(){
     let [dx,dy] = randomNumberBetweenExcludingZero();
-    console.log(dx,dy)
     return {
-        radius: 3,
+        radius: 1,
         dx: dx,
         dy: dy,
         x: Math.floor(Math.random()*canvas.width-1),
@@ -68,9 +67,10 @@ function createNode(){
 
 nodes = [];
 
-for (let i = 0; i < 20; i++){
+for (let i = 0; i < 400; i++){
     nodes.push(createNode())
 }
+
 
 // function to update the canvas
 function update(){
@@ -83,7 +83,16 @@ function update(){
         ctx.fill()
         ctx.closePath()
     }
-    
+
+    for (let i = 0; i < nodes.length; i++){
+        ctx.beginPath();
+        ctx.moveTo(mouseX,mouseY)
+        ctx.lineTo(nodes[i].x,nodes[i].y);
+        ctx.stroke();
+    }
+
+
+
     requestAnimationFrame(update);
 }
 update();
