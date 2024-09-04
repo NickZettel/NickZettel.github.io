@@ -121,7 +121,7 @@ function update(){
     for (let i = 0; i < closeNodes.length; i++){
         for (let j = 0; j < closeNodes.length; j++){
             let distance1 = distBetweenPoints(closeNodes[i],closeNodes[j]);
-            if (distance1<150 && j!=i){
+            if (distance1<50 && j!=i){
                 let distance2 = distBetweenPoints(closeNodes[j],mouse);
                 let alpha = 1 - distance2/190
 
