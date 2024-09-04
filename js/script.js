@@ -6,10 +6,60 @@ const ctx = canvas.getContext('2d');
 const imageData = ctx.createImageData(canvas.width, canvas.height);
 // extract pixel array from imagedata allowing direct pixel manipulation and access to the alpha channel
 const data = imageData.data;
+
+
+let numBalls;
+let connectDistance;
+let visibility;
+let nodes;
+let text;
+let x;
+let y;
+
 // resize canvas placed in a function so it can be called whenever the window is resized
 function resizeCanvas() {
     canvas.width = window.innerWidth;  // Set internal pixel width to match viewport width
     canvas.height = window.innerHeight; // Set internal pixel height to match viewport height
+
+    
+
+    //decide balls and distances
+    area = canvas.width * canvas.height;
+    if (area < 304000){
+        numBalls = area/1300;
+        connectDistance = 50;
+        visibility =  Math.floor(Math.max(canvas.width,canvas.height)/4);
+    }
+    else {
+        numBalls = area/1300;
+        connectDistance = 50;
+        visibility =  Math.floor(Math.max(canvas.width,canvas.height)/5);
+    }
+    nodes = [];
+
+    for (let i = 0; i < numBalls; i++){
+        nodes.push(createNode())
+    }
+
+    //text
+    text = 'Hello, I\'m Nick.';
+    const fontSize = 36; // Font size in pixels
+    ctx.font = `${fontSize}px Helvetica`; // Set the font size and family
+
+    // Measure text width and height
+    const textWidth = ctx.measureText(text).width;
+    const textHeight = fontSize; // Rough estimate of text height
+
+    // Calculate text position
+    x = (canvas.width - textWidth) / 2; // Center horizontally
+    y = (canvas.height + textHeight) / 2; // Center vertically
+
+    // Draw text on canvas
+    ctx.textAlign = 'left'; // Align text left for proper centering
+    ctx.textBaseline = 'middle'; // Align text vertically center
+    ctx.fillStyle = 'black'; // Text color
+    ctx.fillText(text, x, y);
+
 }
 //initial resizing of the canvas
 resizeCanvas();
@@ -30,8 +80,7 @@ canvas.addEventListener('mousemove', (event) => {
         mouse.y = event.clientY - rect.top
     
     
-    coords.textContent = `Mouse Coordinates: (${mouse.x}, ${mouse.y})`;
-    console.log(mouse.x,mouse.y)
+    
 });
 
 
@@ -92,11 +141,6 @@ function drawBetween(obj1,obj2,alpha){
     ctx.stroke();
 }
 
-nodes = [];
-
-for (let i = 0; i < 200; i++){
-    nodes.push(createNode())
-}
 
 
 // function to update the canvas
@@ -113,23 +157,26 @@ function update(){
     }
     closeNodes = [];
     for (let i = 0; i < nodes.length; i++){
-        if (distBetweenPoints(mouse,nodes[i]) < 150) {
+        if (distBetweenPoints(mouse,nodes[i]) < visibility) {
             closeNodes.push(nodes[i])
         }
     }
-
+    console.log(visibility)
     for (let i = 0; i < closeNodes.length; i++){
         for (let j = 0; j < closeNodes.length; j++){
             let distance1 = distBetweenPoints(closeNodes[i],closeNodes[j]);
-            if (distance1<50 && j!=i){
+            if (distance1<connectDistance && j!=i){
                 let distance2 = distBetweenPoints(closeNodes[j],mouse);
-                let alpha = 1 - distance2/190
+                let alpha = 1 - distance2/visibility
 
                 drawBetween(closeNodes[i],closeNodes[j],alpha);
             }
         }
         
     }
+    
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillText(text, x, y);
     requestAnimationFrame(update);
 }
 
