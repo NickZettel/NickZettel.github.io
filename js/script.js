@@ -84,12 +84,7 @@ function update(){
         ctx.closePath()
     }
 
-    for (let i = 0; i < nodes.length; i++){
-        ctx.beginPath();
-        ctx.moveTo(mouseX,mouseY)
-        ctx.lineTo(nodes[i].x,nodes[i].y);
-        ctx.stroke();
-    }
+    
 
 
 
