@@ -18,7 +18,8 @@ let text;
 let x;
 let y;
 
-    
+canvas.width = window.innerWidth;  // Set internal pixel width to match viewport width
+canvas.height = window.innerHeight;
 
 area = canvas.width * canvas.height;
 numBalls = area/1300;
