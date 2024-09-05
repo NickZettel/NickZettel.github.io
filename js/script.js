@@ -17,32 +17,27 @@ let nodes;
 let text;
 let x;
 let y;
+let isResizing = false;
+let resizeTimeout;
+
+window.addEventListener('resize', function() {
+    isResizing = true; 
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(function() {
+        isResizing = false;
+        console.log('Window resizing stopped');
+        resizeCanvas()
+    }, 200);
+});
 
 // resize canvas placed in a function so it can be called whenever the window is resized
 function resizeCanvas() {
+    
     canvas.width = window.innerWidth;  // Set internal pixel width to match viewport width
     canvas.height = window.innerHeight; // Set internal pixel height to match viewport height
 
-    
-
     //decide balls and distances
     area = canvas.width * canvas.height;
-    if (area < 304000){
-        numBalls = area/1300;
-        connectDistance = 50;
-        visibility =  Math.floor(Math.max(canvas.width,canvas.height)/4);
-    }
-    else {
-        numBalls = area/1300;
-        connectDistance = 50;
-        visibility =  Math.floor(Math.max(canvas.width,canvas.height)/5);
-    }
-    nodes = [];
-
-    for (let i = 0; i < numBalls; i++){
-        nodes.push(createNode())
-    }
-
     //text
     text = 'Hello, I\'m Nick.';
     const fontSize = 36; // Font size in pixels
@@ -62,7 +57,28 @@ function resizeCanvas() {
     ctx.fillStyle = 'black'; // Text color
     ctx.fillText(text, x, y);
 
+    if (isResizing){
+        return;
+    }
+    if (area < 304000){
+        numBalls = area/1300;
+        connectDistance = 50;
+        visibility =  Math.floor(Math.max(canvas.width,canvas.height)/4);
+    }
+    else {
+        numBalls = area/1300;
+        connectDistance = 50;
+        visibility =  Math.floor(Math.max(canvas.width,canvas.height)/5);
+    }
+    nodes = [];
+
+    for (let i = 0; i < numBalls; i++){
+        nodes.push(createNode())
+    }
+
+    
 }
+
 //initial resizing of the canvas
 resizeCanvas();
 //ready for resizing
@@ -80,9 +96,7 @@ canvas.addEventListener('mousemove', (event) => {
     // Calculate the mouse position relative to the canvas
         mouse.x = event.clientX - rect.left,
         mouse.y = event.clientY - rect.top
-    
-    
-    
+
 });
 
 

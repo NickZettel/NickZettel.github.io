@@ -1,5 +1,4 @@
 
-
 // find the canvas in the html
 const canvas = document.getElementById('canvas');
 // get the 2d drawing context from the canvas which provides methods for drawing shapes and other content
