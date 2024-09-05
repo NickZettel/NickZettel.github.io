@@ -67,8 +67,8 @@ resizeCanvas();
 window.addEventListener('resize',resizeCanvas)
 
 let mouse = {
-    x: 0,
-    y:0
+    x: canvas.width/2,
+    y: canvas.height/2
 };
 
 canvas.addEventListener('mousemove', (event) => {
