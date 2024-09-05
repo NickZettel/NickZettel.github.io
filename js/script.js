@@ -57,9 +57,7 @@ function resizeCanvas() {
     ctx.fillStyle = 'black'; // Text color
     ctx.fillText(text, x, y);
 
-    if (isResizing){
-        return;
-    }
+
     if (area < 304000){
         numBalls = area/1300;
         connectDistance = 50;
@@ -163,6 +161,13 @@ function drawBetween(obj1,obj2,alpha){
 function update(){
     ctx.fillStyle = '#000000';
     ctx.fillRect(0,0,canvas.width, canvas.height);
+    if (isResizing){
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillText(text, x, y);
+        requestAnimationFrame(update);
+
+        return;
+    }
     for (let i = 0; i < nodes.length; i++){
         nodes[i].move()
         ctx.beginPath();
@@ -177,6 +182,7 @@ function update(){
             closeNodes.push(nodes[i])
         }
     }
+    
     console.log(visibility)
     for (let i = 0; i < closeNodes.length; i++){
         for (let j = 0; j < closeNodes.length; j++){
