@@ -18,73 +18,42 @@ let text;
 let x;
 let y;
 
-// resize canvas placed in a function so it can be called whenever the window is resized
-function resizeCanvas() {
-    canvas.width = window.innerWidth;  // Set internal pixel width to match viewport width
-    canvas.height = window.innerHeight; // Set internal pixel height to match viewport height
-
     
 
-    //decide balls and distances
-    area = canvas.width * canvas.height;
-    if (area < 304000){
-        numBalls = area/1300;
-        connectDistance = 50;
-        visibility =  Math.floor(Math.max(canvas.width,canvas.height)/4);
-    }
-    else {
-        numBalls = area/1300;
-        connectDistance = 50;
-        visibility =  Math.floor(Math.max(canvas.width,canvas.height)/5);
-    }
-    nodes = [];
-
-    for (let i = 0; i < numBalls; i++){
-        nodes.push(createNode())
-    }
-
-    //text
-    text = 'Hello, I\'m Nick.';
-    const fontSize = 36; // Font size in pixels
-    ctx.font = `${fontSize}px Helvetica`; // Set the font size and family
-
-    // Measure text width and height
-    const textWidth = ctx.measureText(text).width;
-    const textHeight = fontSize; // Rough estimate of text height
-
-    // Calculate text position
-    x = (canvas.width - textWidth) / 2; // Center horizontally
-    y = (canvas.height + textHeight) / 2; // Center vertically
-
-    // Draw text on canvas
-    ctx.textAlign = 'left'; // Align text left for proper centering
-    ctx.textBaseline = 'middle'; // Align text vertically center
-    ctx.fillStyle = 'black'; // Text color
-    ctx.fillText(text, x, y);
-
+area = canvas.width * canvas.height;
+numBalls = area/1300;
+connectDistance = 50;
+visibility =  Math.floor(Math.max(canvas.width,canvas.height)/4);
+   
+nodes = [];
+for (let i = 0; i < numBalls; i++){
+    nodes.push(createNode())
 }
-//initial resizing of the canvas
-resizeCanvas();
-//ready for resizing
-window.addEventListener('resize',resizeCanvas)
+
+text = 'Hello, I\'m Nick.';
+const fontSize = 36; // Font size in pixels
+ctx.font = `${fontSize}px Helvetica`; // Set the font size and family
+
+// Measure text width and height
+const textWidth = ctx.measureText(text).width;
+const textHeight = fontSize; // Rough estimate of text height
+
+// Calculate text position
+x = (canvas.width - textWidth) / 2; // Center horizontally
+y = (canvas.height + textHeight) / 2; // Center vertically
+
+// Draw text on canvas
+ctx.textAlign = 'left'; // Align text left for proper centering
+ctx.textBaseline = 'middle'; // Align text vertically center
+ctx.fillStyle = 'black'; // Text color
+ctx.fillText(text, x, y);
+
+
 
 let mouse = {
     x: canvas.width/2,
     y: canvas.height/2
 };
-
-canvas.addEventListener('mousemove', (event) => {
-    // Get the canvas position relative to the viewport
-    const rect = canvas.getBoundingClientRect();
-    
-    // Calculate the mouse position relative to the canvas
-        mouse.x = event.clientX - rect.left,
-        mouse.y = event.clientY - rect.top
-    
-    
-    
-});
-
 
 
 
@@ -142,7 +111,6 @@ function drawBetween(obj1,obj2,alpha){
     ctx.strokeStyle = `rgba(0, 149, 221, ${alpha})`;
     ctx.stroke();
 }
-
 
 
 // function to update the canvas
