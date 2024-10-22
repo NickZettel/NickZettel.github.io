@@ -1,6 +1,6 @@
 # NickZettel.github.io
 My personal website.
 
-testing
-
 <a href>https://nickzettel.github.io/ </a>
+
+![preview](https://github.com/NickZettel/NickZettel.github.io/blob/main/preview.png)
