@@ -39,7 +39,7 @@ function resizeCanvas() {
     //decide balls and distances
     area = canvas.width * canvas.height;
     //text
-    text = 'Hello, I\'m Nick.';
+    text = 'Hello';
     const fontSize = 36; // Font size in pixels
     ctx.font = `${fontSize}px Helvetica`; // Set the font size and family
 
